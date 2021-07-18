@@ -1,14 +1,14 @@
 ## Docker images for Vespa development
 
 This repo contains Docker images for Vespa development on CentOS 7.
-[vespa-build-centos7](https://hub.docker.com/repository/docker/vespaengine/vespa-build-centos7)
+[vespa-build-centos7](https://hub.docker.com/repository/docker/robbinfan/vespa-build-centos7)
 is used for only building Vespa, while
-[vespa-dev-centos7](https://hub.docker.com/repository/docker/vespaengine/vespa-dev-centos7)
+[vespa-dev-centos7](https://hub.docker.com/repository/docker/robbinfan/vespa-dev-centos7)
 is used for active development of Vespa with building, unit testing and running of system tests.
 vespa-dev-centos7 depends on vespa-build-centos7. To pull the images:
 
-    docker pull docker.io/vespaengine/vespa-build-centos7:latest
-    docker pull docker.io/vespaengine/vespa-dev-centos7:latest
+    docker pull docker.io/robbinfan/vespa-build-centos7:latest
+    docker pull docker.io/robbinfan/vespa-dev-centos7:latest
 
 Commits to master will automatically trigger new builds and deployment on Docker Hub.
 
@@ -22,7 +22,7 @@ The project is covered by the [Apache License, Version 2.0](https://www.apache.o
 This guide describes how to build, unit test and system test Vespa on CentOS 7 using Docker.
 When doing Vespa development it is important that the turnaround time between code changes
 and running unit tests and system tests is short.
-[vespa-dev-centos7](https://hub.docker.com/repository/docker/vespaengine/vespa-dev-centos7)
+[vespa-dev-centos7](https://hub.docker.com/repository/docker/robbinfan/vespa-dev-centos7)
 provides a complete environment for this.
 The code is compiled using mvn, cmake and make and then installed into your personal install directory.
 Vespa can be executed directly from this directory when for instance running system tests.
@@ -46,14 +46,14 @@ Make sure Docker can be executed without sudo for the scripts in this guide to w
     sudo groupadd docker
     sudo usermod -aG docker $(id -un)
     sudo systemctl restart docker
-    
+
 Log out and login again; or run `sudo su - $USER` command to continue.
 
 ### Setup the Docker container
 
 #### Download the latest vespa-dev-centos7 Docker image
 
-    docker pull docker.io/vespaengine/vespa-dev-centos7:latest
+    docker pull docker.io/robbinfan/vespa-dev-centos7:latest
 
 #### Create the Docker container
 
@@ -72,7 +72,7 @@ Second, create the container by mounting the volume as the home directory inside
         -v volume-vespa-dev-centos7:/home/$(id -un) \
         --privileged \
         --name vespa-dev-centos7 \
-        docker.io/vespaengine/vespa-dev-centos7:latest
+        docker.io/robbinfan/vespa-dev-centos7:latest
 
 ##### With directory volume mount (recommended for Linux)
 
@@ -90,7 +90,7 @@ Second, run docker create with the -v option to mount the volume directory as th
         -v $HOME/volumes/vespa-dev-centos7:/home/$(id -un) \
         --privileged \
         --name vespa-dev-centos7 \
-        docker.io/vespaengine/vespa-dev-centos7:latest
+        docker.io/robbinfan/vespa-dev-centos7:latest
 
 #### Start the Docker container
 
@@ -114,7 +114,7 @@ and sets environment variables needed for building Vespa.
 #### Build the vespa-dev-centos7 Docker image (optional)
 
     cd $HOME/git/docker-image-dev/dev/centos7
-    docker build -t vespaengine/vespa-dev-centos7:latest .
+    docker build -t robbinfan/vespa-dev-centos7:latest .
 
 Use this for testing if doing changes to the Docker image.
 
